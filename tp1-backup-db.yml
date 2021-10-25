@@ -1,0 +1,7 @@
+- name: TP1 Backup DB
+  hosts: victim
+
+  tasks:
+  - name: xxx
+    shell: cd tp1; docker-compose exec db scripts/backup-db.sh
+

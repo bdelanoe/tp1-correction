@@ -1,5 +1,5 @@
 - name: TP1 Deploy
-  hosts: victim
+  hosts: dev
 
   roles:
     - docker
@@ -15,6 +15,7 @@
     git:
       repo: https://github.com/bdelanoe/tp1-correction.git
       dest: tp1
+      force: yes
   
   - name: Start app
     command:
@@ -24,9 +25,11 @@
   
   - name: Permissions
     file:
-      path: scripts/create-table.sh
+      path: tp1/scripts/create-table.sh
       mode: 'u+x'
 
   - name: Create table citation
-    shell: cd tp1; /usr/bin/sh srcipts/create-table.sh
+    shell: cd tp1; sleep 20; /usr/bin/sh scripts/create-table.sh
+    tags:
+    - create-table # ansible-playbook -i inventory.txt tp1-deploy.yml --tags create-table
   
