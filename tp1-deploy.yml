@@ -16,3 +16,17 @@
       repo: https://github.com/bdelanoe/tp1-correction.git
       dest: tp1
   
+  - name: Start app
+    command:
+      cmd: docker-compose up -d
+    args:
+      chdir: tp1
+  
+  - name: Permissions
+    file:
+      path: scripts/create-table.sh
+      mode: 'u+x'
+
+  - name: Create table citation
+    shell: cd tp1; /usr/bin/sh srcipts/create-table.sh
+  

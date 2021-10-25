@@ -1,0 +1,1 @@
+docker-compose exec db sh -c 'exec mysql -uroot -pabc123 < /scripts/create-table.sql'
