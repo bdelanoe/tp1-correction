@@ -8,6 +8,7 @@ services:
       MYSQL_DATABASE: tp1
     volumes:
       - ./scripts:/scripts
+      - ./dump:/dump
 
   app:
     build: .

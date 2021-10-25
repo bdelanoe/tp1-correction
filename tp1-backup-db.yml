@@ -2,6 +2,11 @@
   hosts: victim
 
   tasks:
-  - name: xxx
-    shell: cd tp1; docker-compose exec db scripts/backup-db.sh
+  - name: Permissions on file
+    file:
+      path: tp1/scripts/backup-db.sh
+      mode: 'u+x'
+
+  - name: Execute backup script
+    shell: cd tp1; docker-compose exec db sh scripts/backup-db.sh
 

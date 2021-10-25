@@ -1,5 +1,5 @@
 - name: TP1 Deploy
-  hosts: dev
+  hosts: victim
 
   roles:
     - docker
@@ -11,11 +11,14 @@
       url: https://github.com/docker/compose/releases/download/1.28.0/docker-compose-Linux-x86_64
       dest: /usr/local/bin/docker-compose
       mode: '+x'
+  
   - name: Clone repo
     git:
       repo: https://github.com/bdelanoe/tp1-correction.git
       dest: tp1
       force: yes
+    tags:
+      - clone-repo
   
   - name: Start app
     command:
