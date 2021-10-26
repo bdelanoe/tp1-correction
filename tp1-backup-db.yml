@@ -10,3 +10,29 @@
   - name: Execute backup script
     shell: cd tp1; docker-compose exec db sh scripts/backup-db.sh
 
+  - name: List dump files
+    shell: ls -Art tp1/dump |tail -n 1
+    register: dumpfile
+    tags:
+      list-dump-files
+
+  - debug: var=dumpfile
+    tags:
+      list-dump-files
+  
+  - name: Fetch dump file
+    fetch:
+      src: tp1/dump/{{ dumpfile.stdout }}
+      dest: dump/{{ ansible_hostname }}-{{ dumpfile.stdout }}
+      flat: yes # pas de création d'arborescence correspondant à la strucutre du remote node
+    tags:
+    - fetch-file
+
+  # - name: Fetch toto file
+  #   fetch:
+  #     src: /tmp/demo/bem.txt
+  #     dest: dump/{{ ansible_hostname }}-bem.txt
+  #     flat: yes
+  #   tags:
+  #   - fetch-file
+
